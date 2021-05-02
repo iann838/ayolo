@@ -2,9 +2,11 @@
 
 Annotating tool for yolov4 datasets, providing fast and easy ways of annotating.
 
-Wait what, another crazy dev reinventing the wheel ? Ohh gosh... whatever.
-
 ![Screenshot](screenshot.jpg)
+
+Wait what, reinventing the wheel ? Well ... technically yes, but if it has improvements or features that others don't, then why not ?
+
+If you like the tool, a **star** to this repository would be nice.
 
 ## Installation
 
