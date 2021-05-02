@@ -4,6 +4,8 @@ Annotating tool for yolov4 datasets, providing fast and easy ways of annotating.
 
 Wait what, another crazy dev reinventing the wheel ? Ohh gosh... whatever.
 
+![Screenshot](screenshot.jpg)
+
 ## Installation
 
 - Requires Python 3.7 (or whatever is supported by PyQt5)
