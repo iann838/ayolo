@@ -1,24 +1,41 @@
 # Ayolo
 
-Python module for annotating datasets for yolov4.
+Annotating tool for yolov4 datasets, providing fast and easy ways of annotating.
 
 Wait what, another crazy dev reinventing the wheel ? Ohh gosh... whatever.
 
 ## Installation
 
-```
+- Requires Python 3.7 (or whatever is supported by PyQt5)
+- No executables, build it from source if you need one.
+- For global access, install it outside of virtual environments.
+
+```bash
 pip install ayolo
 ```
 
-> Yes, you don't have to download any executable.
-
 ## Usage
 
-```
+- Call `annotate` with the dataset path, either relative or absolute.
+
+```bash
 ayolo annotate <dir_path>
 ```
 
-> Yes, you don't have to write a single code.
+## Dataset Structure
+
+```bash
+<dir_path>
+├── img_1.png
+├── img_2.png
+├── img_3.png
+├── classes.txt
+└── annotations.txt
+```
+
+- Supported image extensions: `.png`, `.jpg`
+- Supported annotations format: `.txt`
+- Supported classnames format: `.txt`
 
 ## Interfaces
 
