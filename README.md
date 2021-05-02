@@ -102,8 +102,8 @@ Available mouse events in annotator interface:
 
 | Key/KeySequence | Interface | Action |
 | --------------- | --------- | ------ |
-| `MouseLeft` | Annotator | Start/Finish rectangle annotation |
-| `MouseRight` | Annotator | Undo last annotation |
+| `Left` | Annotator | Start/Finish rectangle annotation |
+| `Right` | Annotator | Undo last annotation |
 | `ScrollUp` | Annotator | Select previous class |
 | `ScrollDn` | Annotator | Select next class |
 | `Back` | Annotator | Navigate previous Image |
