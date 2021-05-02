@@ -4,23 +4,23 @@ Python module for annotating datasets for yolov4.
 
 Wait what, another crazy dev reinventing the wheel ? Ohh gosh... whatever.
 
-# Installation
+## Installation
 
 ```
 pip install ayolo
 ```
 
-Yes, you don't have to download any executable.
+> Yes, you don't have to download any executable.
 
-# Usage
+## Usage
 
 ```
 ayolo annotate <dir_path>
 ```
 
-Yes, you don't have to write a single code.
+> Yes, you don't have to write a single code.
 
-# Interfaces
+## Interfaces
 
 This module provides a PyQt5 window for making annotations on yolov4 datasets. The annotator window consists of 3 interfaces:
 
@@ -45,7 +45,7 @@ This module provides a PyQt5 window for making annotations on yolov4 datasets. T
 - Ability to create new classes on the go.
 - Keyboard and mouse shortcuts for navigating class names search results.
 
-# Buttons
+## Buttons
 
 Available buttons in annotator window:
 
@@ -59,7 +59,7 @@ Available buttons in annotator window:
 | `Delete` | Delete/Discard current Image |
 | `Clear` | Clear all current annotations |
 
-# Keyboard Shortcuts
+## Keyboard Shortcuts
 
 Available keyboard shortcuts in annotator window / interfaces:
 
@@ -75,7 +75,7 @@ Available keyboard shortcuts in annotator window / interfaces:
 | `KeyUp` | Control Panel | Select previous class |
 | `KeyDn` | Control Panel | Select next class |
 
-# Mouse Shortcuts
+## Mouse Shortcuts
 
 Available mouse events in annotator interface:
 
@@ -88,13 +88,13 @@ Available mouse events in annotator interface:
 | `Back` | Annotator | Navigate previous Image |
 | `Forward` | Annotator | Navigate next Image |
 
-> `Back` and `Forward` buttons are not available in most mice, they are typically available on gaming mice
+> `Back` and `Forward` buttons are not available in some mice, they are typically only available on gaming mice
 
-# Contribute
+## Contribute
 
 Contributions are welcomed, as long as it doesn't cause any harm to users.
 
-# Possibly implemented features ?
+## Possibly implemented features ?
 
 I am a normal hooman who has a daily job, thus not a lot time available, but ... let's put some expectations ... soon :tm:.
 
