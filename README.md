@@ -93,8 +93,8 @@ Available keyboard shortcuts in annotator window / interfaces:
 | `Ctrl + Z` | Global | Undo last annotation |
 | `Ctrl + D` | Global | Delete/Discard current Image |
 | `Ctrl + X` | Global | Clear all current annotations |
-| `KeyUp` | Control Panel | Select previous class |
-| `KeyDn` | Control Panel | Select next class |
+| `ArrowUp` | Control Panel | Select previous class |
+| `ArrowDn` | Control Panel | Select next class |
 
 ## Mouse Shortcuts
 
