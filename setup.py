@@ -25,7 +25,7 @@ setup(
     author="Paaksing",
     author_email="paaksingtech@gmail.com",
     url="https://github.com/paaksing/ayolo",
-    description="Annotating tool for yolo v4 datasets, providing fast and easy ways of annotating",
+    description="PyQt5 based annotation tool for yolov4 datasets, providing fast and easy ways of annotating.",
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords=["yolov4", "annotating", "annotations", "DNN", "deep learning"],

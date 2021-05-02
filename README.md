@@ -1,6 +1,6 @@
 # Ayolo
 
-Annotating tool for yolov4 datasets, providing fast and easy ways of annotating.
+PyQt5 based annotation tool for yolov4 datasets, providing fast and easy ways of annotating.
 
 ![Screenshot](screenshot.jpg)
 
