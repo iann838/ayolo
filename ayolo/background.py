@@ -15,14 +15,14 @@ T = TypeVar('T')
 class ImageList:
 
     def __init__(self, path: Path) -> None:
-        self.path = path
-        self.annotation_path = path / "annotations.txt"
+        self.path = path.parent
+        self.annotation_path = path
         self.modified = False
         self.image_annotation_counts = {}
         self.annotations = {}
         self.image_names = []
 
-        for f in Background.sorted_paths_alphanumeric(path.glob("**/*")):
+        for f in Background.sorted_paths_alphanumeric(self.path.glob("**/*")):
             if f.name.endswith(IMG_EXTENSIONS):
                 self.image_annotation_counts[f.name] = None
                 self.image_names.append(f.name)
@@ -98,7 +98,7 @@ class Background:
 
     def __init__(self, dir_path: str) -> None:
         self.dir_path = Path(dir_path)
-        self.images = ImageList(self.dir_path)
+        self.images = ImageList(self.dir_path / "annotations.txt")
         self.classes = ClassList(self.dir_path / 'classes.txt')
         self.img_paths = self.sorted_paths_alphanumeric(f for f in self.dir_path.glob('**/*') if f.name.endswith(('.jpg', '.png')))
 

@@ -8,6 +8,10 @@ Wait what, reinventing the wheel ? Well ... technically yes, but if it has impro
 
 If you like the tool, a **star** to this repository would be nice.
 
+## Bugs
+
+For bugs (e.g. `RuntimeError: cuda runtime error (59) : device-side assert triggered`) you can go over to this repo's issue tracker, specially on the closed ones, to see if it's been resolved or its workaround. If you are sure that the bug is not reported, feel free to open a new issue for that.
+
 ## Installation
 
 - Requires Python 3.7 (or whatever is supported by PyQt5)
