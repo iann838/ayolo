@@ -69,7 +69,12 @@ class Annotator(QtWidgets.QWidget):
             if not self.drawing:
                 self.begin = pos
             else:
-                self.current_annotations.append((*self.get_real_coordinate(self.begin), *self.get_real_coordinate(self.end), self.background.control_panel.get_selected_class_id()))
+                self.current_annotations.append(
+                    (
+                        *self.force_top_left_corner(self.get_real_coordinate(self.begin), self.get_real_coordinate(self.end)),
+                        self.background.control_panel.get_selected_class_id()
+                    )
+                )
                 self.background.control_panel.update_current_annotations_lw(self.current_annotations)
                 self.background.control_panel.search.setFocus()
                 self.background.control_panel.search.selectAll()
@@ -104,6 +109,15 @@ class Annotator(QtWidgets.QWidget):
         self.drawing = False
         self.update()
 
+    def get_real_coordinate(self, pos: QtCore.QPoint):
+        return round((pos.x() - self.img_bounds[0]) * self.ratio[0]), round((pos.y() - self.img_bounds[1]) * self.ratio[1])
+
+    def get_scaled_coordinate(self, x: int, y: int):
+        return QtCore.QPoint(round(x / self.ratio[0] + self.img_bounds[0]), round(y / self.ratio[1] + self.img_bounds[1]))
+
+    def force_top_left_corner(self, x: Tuple[int, int], y: Tuple[int, int]):
+        return min(x[0], y[0]), min(x[1], y[1]), max(x[0], y[0]), max(x[1], y[1])
+
     def modify_painter_brush_and_pen(self, painter: QtGui.QPainter, rgb):
         painter.setBrush(QtGui.QBrush(QtGui.QColor(*rgb, 70)))
         pen = QtGui.QPen(QtGui.QColor(*rgb))
@@ -122,17 +136,11 @@ class Annotator(QtWidgets.QWidget):
         try:
             self.ratio = (original_size[0] / scaledPix.width(), original_size[1] / scaledPix.height())
         except ZeroDivisionError:
-            msg_box = QtWidgets.QMessageBox()
+            msg_box = QtWidgets.QtWidgets.Qtclose = QtWidgets.QMessageBox()
             msg_box.critical(self.background.image_browser, 'Error loading image', "Image not found or it's dimension could not be resolved.", QtWidgets.QMessageBox.StandardButton.Ok)
             painter.end()
             self.background.image_browser.navigate_next()
         painter.drawPixmap(point, scaledPix)
-
-    def get_real_coordinate(self, pos: QtCore.QPoint):
-        return round((pos.x() - self.img_bounds[0]) * self.ratio[0]), round((pos.y() - self.img_bounds[1]) * self.ratio[1])
-
-    def get_scaled_coordinate(self, x: int, y: int):
-        return QtCore.QPoint(round(x / self.ratio[0] + self.img_bounds[0]), round(y / self.ratio[1] + self.img_bounds[1]))
 
     def force_bounded_pos(self, pos: QtCore.QPoint):
         if pos.x() < self.img_bounds[0]:
@@ -181,13 +189,19 @@ class Annotator(QtWidgets.QWidget):
         self.update()
 
     def update_last_annotation_class(self, clas):
-        try:
-            last = list(self.current_annotations[-1])
-            last[-1] = clas
-            self.current_annotations[-1] = tuple(last)
-            self.background.control_panel.update_current_annotations_lw(self.current_annotations)
-        except IndexError:
-            pass
+        # try:
+        #     last = list(self.current_annotations[-1])
+        #     last[-1] = clas
+        #     self.current_annotations[-1] = tuple(last)
+        #     self.background.control_panel.update_current_annotations_lw(self.current_annotations)
+        # except IndexError:
+        #     pass
+        # THIS WAS REMOVED SINCE v0.2.0 AS YOU SHOULD SELECT CLASS BEFORE ANNOTATING
+        self.update()
+
+    def push_back_annotation(self, ind):
+        self.current_annotations.append(self.current_annotations.pop(ind))
+        self.background.control_panel.update_current_annotations_lw(self.current_annotations)
         self.update()
 
 
@@ -211,6 +225,7 @@ class ControlPanel(QtWidgets.QWidget):
         
         self.current_annotations_lb = QtWidgets.QLabel('Current Annotations')
         self.current_annotations_lw = QtWidgets.QListWidget()
+        self.current_annotations_lw.currentRowChanged.connect(self.current_annotations_row_changed)
 
         self.save_btn = QtWidgets.QPushButton('Save (S)')
         self.save_btn.clicked.connect(self.background.annotator.save_annotations)
@@ -288,6 +303,12 @@ class ControlPanel(QtWidgets.QWidget):
             list_item.setForeground(QtGui.QColor(*color))
             self.current_annotations_lw.addItem(list_item)
         self.update()
+
+    def current_annotations_row_changed(self, ind: int):
+        if ind == self.current_annotations_lw.count() - 1:
+            return
+        self.background.annotator.push_back_annotation(ind)
+        self.current_annotations_lw.setCurrentRow(self.current_annotations_lw.count() - 1)
 
     def get_selected_class_id(self):
         row = self.classes_lw.currentRow()
@@ -464,6 +485,20 @@ class MainWindow(QtWidgets.QMainWindow):
         widget.setLayout(layout)
         self.background.control_panel.search.setFocus()
         self.activateWindow()
+
+    def closeEvent(self, event):
+        close = QtWidgets.QMessageBox()
+        close.setText("Are you sure you want to exit ?")
+        close.setWindowTitle("Exit")
+        close.setIcon(QtWidgets.QMessageBox.Icon.Question)
+        close.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        close = close.exec()
+
+        if close == QtWidgets.QMessageBox.Yes:
+            self.annotator.save_annotations()
+            event.accept()
+        else:
+            event.ignore()
 
     def center_self(self):
         qtRectangle = self.frameGeometry()

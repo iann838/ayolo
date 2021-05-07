@@ -21,7 +21,7 @@ if sys.version_info.major != 3 and sys.version_info.minor < 7:
 
 setup(
     name="ayolo",
-    version="0.1.1",
+    version="0.2.0",
     author="Paaksing",
     author_email="paaksingtech@gmail.com",
     url="https://github.com/paaksing/ayolo",
